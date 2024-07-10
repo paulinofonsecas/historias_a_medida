@@ -36,6 +36,10 @@ class ReadHistoriaPage extends StatelessWidget {
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
+              title: Text(
+                historia.nome,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
               actions: [
                 IconButton(
                   onPressed: () {
