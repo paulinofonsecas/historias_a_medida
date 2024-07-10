@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:historias_a_medida/features/Historia/domain/entities/historia_entity.dart';
 import 'package:historias_a_medida/features/Historia/presentation/read_historia/bloc/bloc.dart';
+import 'package:historias_a_medida/features/Historia/presentation/read_historia/cubit/text_zoom_cubit.dart';
 import 'package:historias_a_medida/features/Historia/presentation/read_historia/widgets/read_historia_body.dart';
 import 'package:historias_a_medida/utils/dependencies.dart';
 
@@ -21,15 +23,41 @@ class ReadHistoriaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ReadHistoriaBloc(),
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(historia.nome),
-        // ),
-        body: ReadHistoriaView(
-          historia: historia,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ReadHistoriaBloc(),
         ),
+        BlocProvider(
+          create: (context) => TextZoomCubit(),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    context.read<TextZoomCubit>().zoomIn();
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+                const Gutter(),
+                IconButton(
+                  onPressed: () {
+                    context.read<TextZoomCubit>().zoomOut();
+                  },
+                  icon: const Icon(Icons.remove),
+                ),
+                const Gutter(),
+              ],
+            ),
+            body: ReadHistoriaView(
+              historia: historia,
+            ),
+          );
+        },
       ),
     );
   }

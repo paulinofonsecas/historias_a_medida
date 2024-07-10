@@ -64,7 +64,7 @@ class GenerateHistoriaBloc
     final dim = dimensao(historiaModel.dimensao);
 
     final prompt = '''
-      Crie uma historia infantil em portugues de $dim palavras em Markdown 
+      Crie uma historia infantil em portugues de $dim palavras; sem Markdown
       com base nos seguintes fatos:
 
       Fatos:
