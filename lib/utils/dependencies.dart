@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:historias_a_medida/features/Historia/data/data_sources/i_historia_datasource.dart';
+import 'package:historias_a_medida/features/Historia/data/data_sources/local/hive_historia_datasource.dart';
 import 'package:historias_a_medida/features/Historia/data/data_sources/local/memory_historia_datasource.dart';
 import 'package:historias_a_medida/features/Historia/data/repositories_impl/historia_repository_impl.dart';
 import 'package:historias_a_medida/features/Historia/domain/repositories/i_historia_repository.dart';
@@ -12,8 +13,9 @@ final getIt = GetIt.instance;
 
 Future<void> initDependencies() async {
   getIt
+    ..registerLazySingleton(GestaoHistoriaBloc.new)
     ..registerLazySingleton<IHistoriaDatasource>(
-      MemoryHistoriaDatasource.new,
+      HiveHistoriaDatasource.new,
     )
     ..registerLazySingleton<IHistoriaRepository>(
       () => HistoriaRepositoryImpl(getIt()),
@@ -24,6 +26,5 @@ Future<void> initDependencies() async {
     ..registerLazySingleton<AddHistoriaUsecase>(
       () => AddHistoriaUsecase(getIt()),
     )
-    ..registerLazySingleton(BottomNavBarCubit.new)
-    ..registerLazySingleton(GestaoHistoriaBloc.new);
+    ..registerLazySingleton(BottomNavBarCubit.new);
 }

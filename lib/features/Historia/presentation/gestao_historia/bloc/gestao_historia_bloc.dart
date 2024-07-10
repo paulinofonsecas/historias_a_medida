@@ -24,14 +24,15 @@ class GestaoHistoriaBloc
   FutureOr<void> _onGetAllHistorias(
     GetAllHistorias event,
     Emitter<GestaoHistoriaState> emit,
-  ) {
+  ) async {
     emit(const GestaoHistoriaLoading());
 
     final getHistoriasUC = getIt<GetHistoriasUsecase>();
 
-    getHistoriasUC().then((historias) {
+    await getHistoriasUC().then((historias) {
       emit(GestaoHistoriaSuccess(historias));
     }).catchError((_) {
+      print(_);
       emit(const GestaoHistoriaError('Erro ao buscar historias'));
     });
   }

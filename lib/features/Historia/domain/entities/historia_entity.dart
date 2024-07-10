@@ -59,7 +59,7 @@ class HistoriaEntity {
     };
   }
 
-  factory HistoriaEntity.fromMap(Map<String, dynamic> map) {
+  factory HistoriaEntity.fromMap(Map<dynamic, dynamic> map) {
     return HistoriaEntity(
       id: map['id'] as String,
       nome: map['nome'] as String,
