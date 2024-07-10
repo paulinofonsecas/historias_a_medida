@@ -20,11 +20,25 @@ class GestaoHistoriaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GestaoHistoriaBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Gestão de historias'),
-        ),
-        body: const GestaoHistoriaView(),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Gestão de historias'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+                    context
+                        .read<GestaoHistoriaBloc>()
+                        .add(const GetAllHistorias());
+                  },
+                ),
+              ],
+            ),
+            body: const GestaoHistoriaView(),
+          );
+        },
       ),
     );
   }
