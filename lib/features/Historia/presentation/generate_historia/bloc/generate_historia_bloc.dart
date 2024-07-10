@@ -21,12 +21,12 @@ class GenerateHistoriaBloc
     on<GenerateHistoriaSubmitted>(_onGenerateHistoriaSubmitted);
 
     historiaModel = HistoriaModel(
-      nome: 'Aventuras na Centralidade Horizonte, Cuito, Bié, Angola',
-      personagemPrincipal: 'Romão Job',
-      coadjuvantes: 'Josefina Meti, Paulino Fonseca',
-      descricao: 'Três colegas eletricistas resolvem um grande'
-          ' problema de eletricidade na centralidade',
-      categorias: 'Aventura, suspanse',
+      // nome: 'Aventuras na Centralidade Horizonte, Cuito, Bié, Angola',
+      // personagemPrincipal: 'Romão Job',
+      // coadjuvantes: 'Josefina Meti, Paulino Fonseca',
+      // descricao: 'Três colegas eletricistas resolvem um grande'
+      //     ' problema de eletricidade na centralidade',
+      // categorias: 'Aventura, suspanse',
     );
   }
 

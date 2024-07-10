@@ -25,23 +25,6 @@ class GenerateHistoriaPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Crie uma historia'),
-              actions: [
-                TextButton.icon(
-                  onPressed: () {
-                    // if (context
-                    //     .read<GenerateHistoriaBloc>()
-                    //     .formKey
-                    //     .currentState!
-                    //     .validate()) {
-                    context
-                        .read<GenerateHistoriaBloc>()
-                        .add(const GenerateHistoriaSubmitted());
-                    // }
-                  },
-                  icon: const Icon(Icons.save),
-                  label: const Text('Salvar'),
-                ),
-              ],
             ),
             body: const GenerateHistoriaView(),
           );

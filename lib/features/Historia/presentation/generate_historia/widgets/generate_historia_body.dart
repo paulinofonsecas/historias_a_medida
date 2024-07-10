@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:historias_a_medida/features/Historia/domain/entities/dimensao.dart';
 import 'package:historias_a_medida/features/Historia/presentation/generate_historia/bloc/generate_historia_bloc.dart';
 import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/cubit/bottom_nav_bar_cubit.dart';
 import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/gestao_historia.dart';
@@ -52,120 +53,172 @@ class _GenerateHistoriaBodyState extends State<GenerateHistoriaBody> {
 
         return Form(
           key: context.read<GenerateHistoriaBloc>().formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Informe o nome da Historia';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nome da historia',
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe o nome da Historia';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome da historia',
+                    ),
+                    onChanged: (value) {
+                      context.read<GenerateHistoriaBloc>().historiaModel =
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .historiaModel
+                              .copyWith(
+                                nome: value,
+                              );
+                    },
                   ),
-                  onChanged: (value) {
-                    context.read<GenerateHistoriaBloc>().historiaModel = context
+                  const Gutter(),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe o nome do personagem principal';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome do personagem principal',
+                      helperText: 'Capitão América',
+                    ),
+                    onChanged: (value) {
+                      context.read<GenerateHistoriaBloc>().historiaModel =
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .historiaModel
+                              .copyWith(
+                                personagemPrincipal: value,
+                              );
+                    },
+                  ),
+                  const Gutter(),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe os coadjuvantes';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome dos coadjuvantes',
+                      helperText: 'Ex: Aranha, Homem de Ferro, etc',
+                    ),
+                    onChanged: (value) {
+                      context.read<GenerateHistoriaBloc>().historiaModel =
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .historiaModel
+                              .copyWith(
+                                coadjuvantes: value,
+                              );
+                    },
+                  ),
+                  const Gutter(),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe a descrição da Historia';
+                      }
+                      return null;
+                    },
+                    maxLines: 3,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Descricao',
+                    ),
+                    onChanged: (value) {
+                      context.read<GenerateHistoriaBloc>().historiaModel =
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .historiaModel
+                              .copyWith(
+                                descricao: value,
+                              );
+                    },
+                  ),
+                  const Gutter(),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Informe as categorias da Historia';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Categorias',
+                      helperText: 'Ex: Aventura, Fantasia, etc',
+                    ),
+                    onChanged: (value) {
+                      context.read<GenerateHistoriaBloc>().historiaModel =
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .historiaModel
+                              .copyWith(
+                                categorias: value,
+                              );
+                    },
+                  ),
+                  const Gutter(),
+                  DropdownButtonFormField<Dimensao>(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Dimensão',
+                    ),
+                    value: context
                         .read<GenerateHistoriaBloc>()
                         .historiaModel
-                        .copyWith(
-                          nome: value,
-                        );
-                  },
-                ),
-                const Gutter(),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Informe o nome do personagem principal';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nome do personagem principal',
-                    helperText: 'Capitão América',
+                        .dimensao,
+                    onChanged: (value) {
+                      context.read<GenerateHistoriaBloc>().historiaModel =
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .historiaModel
+                              .copyWith(
+                                dimensao: value,
+                              );
+                    },
+                    items: Dimensao.values
+                        .map(
+                          (dimensao) => DropdownMenuItem<Dimensao>(
+                            value: dimensao,
+                            child: Text(dimensao.name),
+                          ),
+                        )
+                        .toList(),
                   ),
-                  onChanged: (value) {
-                    context.read<GenerateHistoriaBloc>().historiaModel = context
-                        .read<GenerateHistoriaBloc>()
-                        .historiaModel
-                        .copyWith(
-                          personagemPrincipal: value,
-                        );
-                  },
-                ),
-                const Gutter(),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Informe os coadjuvantes';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nome dos coadjuvantes',
-                    helperText: 'Ex: Aranha, Homem de Ferro, etc',
+                  const GutterLarge(),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (context
+                            .read<GenerateHistoriaBloc>()
+                            .formKey
+                            .currentState!
+                            .validate()) {
+                          context
+                              .read<GenerateHistoriaBloc>()
+                              .add(const GenerateHistoriaSubmitted());
+                        }
+                      },
+                      child: const Text('Gerar Historia'),
+                    ),
                   ),
-                  onChanged: (value) {
-                    context.read<GenerateHistoriaBloc>().historiaModel = context
-                        .read<GenerateHistoriaBloc>()
-                        .historiaModel
-                        .copyWith(
-                          coadjuvantes: value,
-                        );
-                  },
-                ),
-                const Gutter(),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Informe a descrição da Historia';
-                    }
-                    return null;
-                  },
-                  maxLines: 3,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Descricao',
-                  ),
-                  onChanged: (value) {
-                    context.read<GenerateHistoriaBloc>().historiaModel = context
-                        .read<GenerateHistoriaBloc>()
-                        .historiaModel
-                        .copyWith(
-                          descricao: value,
-                        );
-                  },
-                ),
-                const Gutter(),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Informe as categorias da Historia';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Categorias',
-                    helperText: 'Ex: Aventura, Fantasia, etc',
-                  ),
-                  onChanged: (value) {
-                    context.read<GenerateHistoriaBloc>().historiaModel = context
-                        .read<GenerateHistoriaBloc>()
-                        .historiaModel
-                        .copyWith(
-                          categorias: value,
-                        );
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
