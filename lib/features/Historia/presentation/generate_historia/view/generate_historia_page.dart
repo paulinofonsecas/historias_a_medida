@@ -28,15 +28,15 @@ class GenerateHistoriaPage extends StatelessWidget {
               actions: [
                 TextButton.icon(
                   onPressed: () {
-                    if (context
+                    // if (context
+                    //     .read<GenerateHistoriaBloc>()
+                    //     .formKey
+                    //     .currentState!
+                    //     .validate()) {
+                    context
                         .read<GenerateHistoriaBloc>()
-                        .formKey
-                        .currentState!
-                        .validate()) {
-                      context
-                          .read<GenerateHistoriaBloc>()
-                          .add(const GenerateHistoriaSubmitted());
-                    }
+                        .add(const GenerateHistoriaSubmitted());
+                    // }
                   },
                   icon: const Icon(Icons.save),
                   label: const Text('Salvar'),

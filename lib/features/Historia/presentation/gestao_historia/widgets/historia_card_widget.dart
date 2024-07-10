@@ -5,8 +5,11 @@ class HistoriaCardWidget extends StatelessWidget {
   const HistoriaCardWidget({
     required this.historia,
     super.key,
+    this.onTap,
   });
+  
   final HistoriaEntity historia;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class HistoriaCardWidget extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
-        onTap: () {},
+        onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

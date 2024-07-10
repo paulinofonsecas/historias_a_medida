@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:historias_a_medida/features/Historia/domain/entities/dimensao.dart';
 import 'package:historias_a_medida/features/Historia/domain/entities/historia_entity.dart';
 import 'package:historias_a_medida/features/Historia/domain/use_cases/add_historia_usecase.dart';
 import 'package:historias_a_medida/features/Historia/presentation/generate_historia/models/historia_model.dart';
@@ -19,14 +20,14 @@ class GenerateHistoriaBloc
     on<CustomGenerateHistoriaEvent>(_onCustomGenerateHistoriaEvent);
     on<GenerateHistoriaSubmitted>(_onGenerateHistoriaSubmitted);
 
-    // nome: 'Aventuras na Centralidade Horizonte, Cuito, Bié, Angola',
-    // personagemPrincipal: 'Romão Job',
-    // coadjuvantes: 'Josefina Meti, Paulino Fonseca',
-    // descricao: 'Três colegas eletricistas resolvem um grande'
-    //     ' problema de eletricidade na centralidade',
-    // categorias: 'Aventura, suspanse',
-
-    historiaModel = HistoriaModel();
+    historiaModel = HistoriaModel(
+      nome: 'Aventuras na Centralidade Horizonte, Cuito, Bié, Angola',
+      personagemPrincipal: 'Romão Job',
+      coadjuvantes: 'Josefina Meti, Paulino Fonseca',
+      descricao: 'Três colegas eletricistas resolvem um grande'
+          ' problema de eletricidade na centralidade',
+      categorias: 'Aventura, suspanse',
+    );
   }
 
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -36,6 +37,16 @@ class GenerateHistoriaBloc
     CustomGenerateHistoriaEvent event,
     Emitter<GenerateHistoriaState> emit,
   ) {}
+
+  int dimensao(Dimensao dim) {
+    if (dim == Dimensao.pequena) {
+      return 250;
+    } else if (dim == Dimensao.media) {
+      return 500;
+    } else {
+      return 1000;
+    }
+  }
 
   FutureOr<void> _onGenerateHistoriaSubmitted(
     GenerateHistoriaSubmitted event,
@@ -50,8 +61,11 @@ class GenerateHistoriaBloc
       apiKey: apiKey,
     );
 
+    final dim = dimensao(historiaModel.dimensao);
+
     final prompt = '''
-      Crie uma historia infantil em portugues de 00 palavras com base nos seguintes fatos:
+      Crie uma historia infantil em portugues de $dim palavras em Markdown 
+      com base nos seguintes fatos:
 
       Fatos:
         nome: ${historiaModel.nome}
@@ -74,6 +88,7 @@ class GenerateHistoriaBloc
       descricao: historiaModel.descricao,
       categorias: historiaModel.categorias,
       historia: response.text ?? '',
+      dimensao: historiaModel.dimensao,
     );
 
     final addHistoriaUsecase = getIt<AddHistoriaUsecase>();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/bloc/gestao_historia_bloc.dart';
 import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/widgets/historia_card_widget.dart';
+import 'package:historias_a_medida/features/Historia/presentation/read_historia/read_historia.dart';
 import 'package:historias_a_medida/utils/dependencies.dart';
 
 class HistoriasListWidget extends StatelessWidget {
@@ -38,6 +38,12 @@ class HistoriasListWidget extends StatelessWidget {
             separatorBuilder: (context, index) => const SizedBox(height: 32),
             itemBuilder: (context, index) {
               return HistoriaCardWidget(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    ReadHistoriaPage.route(state.historias[index]),
+                  );
+                },
                 historia: state.historias[index],
               );
             },

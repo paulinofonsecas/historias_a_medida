@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:historias_a_medida/features/Historia/domain/entities/dimensao.dart';
+
 class HistoriaEntity {
   final String id;
   final String nome;
@@ -9,7 +11,8 @@ class HistoriaEntity {
   final String descricao;
   final String categorias;
   final String historia;
-  
+  final Dimensao dimensao;
+
   HistoriaEntity({
     required this.id,
     required this.nome,
@@ -18,6 +21,7 @@ class HistoriaEntity {
     required this.descricao,
     required this.categorias,
     required this.historia,
+    required this.dimensao,
   });
 
   HistoriaEntity copyWith({
@@ -28,6 +32,7 @@ class HistoriaEntity {
     String? descricao,
     String? categorias,
     String? historia,
+    Dimensao? dimensao,
   }) {
     return HistoriaEntity(
       id: id ?? this.id,
@@ -37,6 +42,7 @@ class HistoriaEntity {
       descricao: descricao ?? this.descricao,
       categorias: categorias ?? this.categorias,
       historia: historia ?? this.historia,
+      dimensao: dimensao ?? this.dimensao,
     );
   }
 
@@ -49,6 +55,7 @@ class HistoriaEntity {
       'descricao': descricao,
       'categorias': categorias,
       'historia': historia,
+      'dimensao': dimensao.name,
     };
   }
 
@@ -61,6 +68,7 @@ class HistoriaEntity {
       descricao: map['descricao'] as String,
       categorias: map['categorias'] as String,
       historia: map['historia'] as String,
+      dimensao: Dimensao.values.byName(map['dimensao'] as String),
     );
   }
 
@@ -71,7 +79,7 @@ class HistoriaEntity {
 
   @override
   String toString() {
-    return 'HistoriaEntity(id: $id, nome: $nome, personagemPrincipal: $personagemPrincipal, coadjuvantes: $coadjuvantes, descricao: $descricao, categorias: $categorias, historia: $historia)';
+    return 'HistoriaEntity(id: $id, nome: $nome, personagemPrincipal: $personagemPrincipal, coadjuvantes: $coadjuvantes, descricao: $descricao, categorias: $categorias, historia: $historia, dimensao: $dimensao)';
   }
 
   @override
@@ -84,7 +92,8 @@ class HistoriaEntity {
         other.coadjuvantes == coadjuvantes &&
         other.descricao == descricao &&
         other.categorias == categorias &&
-        other.historia == historia;
+        other.historia == historia &&
+        other.dimensao == dimensao;
   }
 
   @override
@@ -95,6 +104,7 @@ class HistoriaEntity {
         coadjuvantes.hashCode ^
         descricao.hashCode ^
         categorias.hashCode ^
-        historia.hashCode;
+        historia.hashCode ^
+        dimensao.hashCode;
   }
 }
