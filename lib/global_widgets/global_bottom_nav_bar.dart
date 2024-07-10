@@ -27,8 +27,10 @@ class _GlobalBottomNavBarState extends State<GlobalBottomNavBar>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
+      buildWhen: (previous, current) => previous != current,
       bloc: getIt<BottomNavBarCubit>(),
       builder: (context, state) {
+        controller.animateTo(state.index);
         return ConvexAppBar(
           backgroundColor: const Color(0xff0175C2),
           initialActiveIndex: state.index,
