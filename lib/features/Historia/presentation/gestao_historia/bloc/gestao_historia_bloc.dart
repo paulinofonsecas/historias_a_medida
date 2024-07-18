@@ -17,6 +17,7 @@ class GestaoHistoriaBloc
   }
 
   FutureOr<void> _onCustomGestaoHistoriaEvent(
+    
     CustomGestaoHistoriaEvent event,
     Emitter<GestaoHistoriaState> emit,
   ) {}
