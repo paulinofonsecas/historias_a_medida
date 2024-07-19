@@ -5,6 +5,7 @@ import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:historias_a_medida/features/Historia/domain/entities/dimensao.dart';
 import 'package:historias_a_medida/features/Historia/presentation/generate_historia/bloc/generate_historia_bloc.dart';
 import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/cubit/bottom_nav_bar_cubit.dart';
+import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/cubit/categorias_field.dart';
 import 'package:historias_a_medida/features/Historia/presentation/gestao_historia/gestao_historia.dart';
 import 'package:historias_a_medida/utils/dependencies.dart';
 import 'package:historias_a_medida/utils/snackbar_util.dart';
@@ -150,33 +151,12 @@ class _GenerateHistoriaBodyState extends State<GenerateHistoriaBody> {
                     },
                   ),
                   const Gutter(),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Informe as categorias da Historia';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Categorias',
-                      helperText: 'Ex: Aventura, Fantasia, etc',
-                    ),
-                    onChanged: (value) {
-                      context.read<GenerateHistoriaBloc>().historiaModel =
-                          context
-                              .read<GenerateHistoriaBloc>()
-                              .historiaModel
-                              .copyWith(
-                                categorias: value,
-                              );
-                    },
-                  ),
+                  const CategoriasField(),
                   const Gutter(),
                   DropdownButtonFormField<Dimensao>(
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Dimensão',
+                      labelText: 'Tamanho da Historia',
                     ),
                     value: context
                         .read<GenerateHistoriaBloc>()
