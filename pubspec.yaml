@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.4
-  flutter_gutter: ^1.0.2
+  flutter_gutter: ^1.0.3
   flutter_localizations:
     sdk: flutter
   get_it: ^7.7.0
